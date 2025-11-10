@@ -3,13 +3,6 @@
 This is the official code for the paper [Bayesian Neural Networks for One-to-Many Mapping in Image Enhancement](https://arxiv.org/pdf/2501.14265)
 
    
-  
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bayesian-enhancement-models-for-one-to-many/low-light-image-enhancement-on-lol)](https://paperswithcode.com/sota/low-light-image-enhancement-on-lol?p=bayesian-enhancement-models-for-one-to-many)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bayesian-enhancement-models-for-one-to-many/low-light-image-enhancement-on-dicm)](https://paperswithcode.com/sota/low-light-image-enhancement-on-dicm?p=bayesian-enhancement-models-for-one-to-many)	
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bayesian-enhancement-models-for-one-to-many/low-light-image-enhancement-on-lime)](https://paperswithcode.com/sota/low-light-image-enhancement-on-lime?p=bayesian-enhancement-models-for-one-to-many)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bayesian-enhancement-models-for-one-to-many/low-light-image-enhancement-on-mef)](https://paperswithcode.com/sota/low-light-image-enhancement-on-mef?p=bayesian-enhancement-models-for-one-to-many)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bayesian-enhancement-models-for-one-to-many/low-light-image-enhancement-on-npe)](https://paperswithcode.com/sota/low-light-image-enhancement-on-npe?p=bayesian-enhancement-models-for-one-to-many)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/bayesian-enhancement-models-for-one-to-many/low-light-image-enhancement-on-vv)](https://paperswithcode.com/sota/low-light-image-enhancement-on-vv?p=bayesian-enhancement-models-for-one-to-many)
 
 ## Demo: BEM's No-Reference Inference with CLIP
 ![clip default](./assets/clip_default.gif) 
@@ -21,6 +14,7 @@ This is the official code for the paper [Bayesian Neural Networks for One-to-Man
 
  
 ## News 💡
+- **2025.11.08** Our paper has been accepted to AAAI 2026🎉🎉🎉.
 - **2025.03.24** We released the pretrained models for [NTIRE 2025 Low-light Image Enhancement Challenge](https://codalab.lisn.upsaclay.fr/competitions/21636). 
 - **2025.03.04** The Code for BEM version 2 has been released. 
 - **2024.10.31** Masked Image Modeling (MIM) is implemented to enhance our Stage-II network. We haven’t evaluated its effectiveness, and our team has no future plan to inlcude MIM into the current paper or draw new papers for it. We welcome anyone interested in continuing this research and invite discussions.
@@ -258,11 +252,11 @@ python3 basicsr/train.py --opt Options/IE_UNet_UIEB.yml
 ## Citation
 
 ```shell
-@article{huang2025bayesian,
+@article{huang2026bayesian,
   title={Bayesian Neural Networks for One-to-Many Mapping in Image Enhancement},
-  author={Huang, Guoxi and Anantrasirichai, Nantheera and Ye, Fei and Qi, Zipeng and Lin, RuiRui and Yang, Qirui and Bull, David},
-  journal={arXiv preprint arXiv:2501.14265},
-  year={2025}
+  author={Huang, Guoxi and Yang, Qirui and Qi, Zipeng and Lin, RuiRui and Bull, David and Anantrasirichai, Nantheera},
+  journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+  year={2026}
 }
 ```
 
