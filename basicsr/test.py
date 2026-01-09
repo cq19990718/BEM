@@ -7,7 +7,11 @@ from basicsr.models import build_model
 from basicsr.utils import get_env_info, get_root_logger, get_time_str, make_exp_dirs
 from basicsr.utils.options import dict2str, parse_options
 
+'''输入：root_path（项目根路径）
 
+输出：无显式返回（执行测试流程）
+
+作用：解析配置、构建测试数据与模型，调用模型的 validation 做评测。'''
 def test_pipeline(root_path):
     # parse options, set distributed setting, set ramdom seed
     opt, _ = parse_options(root_path, is_train=False)

@@ -1,3 +1,5 @@
+# LOL-v2 Real (真实抓拍)
+# 学习率周期 15w - 4.6w - 10.4w
 # general settings
 name: CG_UNet_LOLv2Real
 model_type: ConditionGenerator

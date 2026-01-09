@@ -1,4 +1,4 @@
-
+# UIEB (水下图像增强)
 # general settings
 name: CG_UNet_UIEB
 model_type: ConditionGenerator

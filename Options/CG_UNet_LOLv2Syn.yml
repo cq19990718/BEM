@@ -1,3 +1,5 @@
+# LOL-v2 Syn (合成数据)
+# 学习率周期 15w - 4.6w - 10.4w
 name: CG_UNet_LOLv2Syn
 model_type: ConditionGenerator
 scale: 1

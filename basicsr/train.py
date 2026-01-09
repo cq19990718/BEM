@@ -30,7 +30,22 @@ def init_tb_loggers(opt):
         tb_logger = init_tb_logger(log_dir=osp.join(opt['root_path'], 'tb_logger', opt['name']))
     return tb_logger
 
+'''create_train_val_dataloader(opt, logger)
+输入：opt（dict，训练配置），logger（日志器）
 
+输出：
+
+train_loader（训练 DataLoader）
+
+train_sampler（训练采样器）
+
+val_loaders（验证 DataLoader 列表）
+
+total_epochs（总 epoch 数）
+
+total_iters（总迭代数）
+
+作用：按配置构建训练/验证数据集与加载器，并计算训练统计信息。'''
 def create_train_val_dataloader(opt, logger):
     # create train and val dataloaders
     train_loader, val_loaders = None, []
@@ -70,7 +85,12 @@ def create_train_val_dataloader(opt, logger):
 
     return train_loader, train_sampler, val_loaders, total_epochs, total_iters
 
+'''load_resume_state(opt)
+输入：opt（dict，训练配置）
 
+输出：resume_state（若有则为恢复状态 dict，否则 None）
+
+作用：根据配置读取断点训练状态并校验可恢复迭代。'''
 def load_resume_state(opt):
     resume_state_path = None
     if opt['auto_resume']:
@@ -93,7 +113,12 @@ def load_resume_state(opt):
         check_resume(opt, resume_state['iter'])
     return resume_state
 
+'''train_pipeline(root_path)
+输入：root_path（项目根路径）
 
+输出：无显式返回（执行完整训练流程）
+
+作用：解析配置、创建日志/数据/模型、执行训练循环、验证与保存。'''
 def train_pipeline(root_path):
     # parse options, set distributed setting, set random seed
     opt, args = parse_options(root_path, is_train=True)

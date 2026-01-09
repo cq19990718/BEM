@@ -54,14 +54,16 @@ def default_init_weights(module_list, scale=1, bias_fill=0, **kwargs):
 
 
 def make_layer(basic_block, num_basic_block, **kwarg):
-    """Make layers by stacking the same blocks.
+    """
+    将同一种网络模块（basic_block）重复堆叠，构建一个 nn.Sequential 层。
 
-    Args:
-        basic_block (nn.module): nn.module class for basic block.
-        num_basic_block (int): number of blocks.
+    参数：
+        basic_block (nn.Module): 网络模块类（如 BasicBlock、ConvBlock 等）
+        num_basic_block (int): 模块堆叠的数量
+        **kwarg: 传入 basic_block 构造函数的参数
 
-    Returns:
-        nn.Sequential: Stacked blocks in nn.Sequential.
+    返回：
+        nn.Sequential: 按顺序堆叠后的网络层
     """
     layers = []
     for _ in range(num_basic_block):
@@ -70,18 +72,16 @@ def make_layer(basic_block, num_basic_block, **kwarg):
 
 
 class ResidualBlockNoBN(nn.Module):
-    """Residual block without BN.
+    """
+    不含 BatchNorm 的残差块（Residual Block）。
 
-    It has a style of:
-        ---Conv-ReLU-Conv-+-
-         |________________|
+    结构为：Conv → ReLU → Conv，并将输出与输入相加形成残差连接。
 
-    Args:
-        num_feat (int): Channel number of intermediate features.
-            Default: 64.
-        res_scale (float): Residual scale. Default: 1.
-        pytorch_init (bool): If set to True, use pytorch default init,
-            otherwise, use default_init_weights. Default: False.
+    参数：
+        num_feat (int): 特征通道数，输入与输出通道相同，默认 64
+        res_scale (float): 残差缩放系数，用于控制残差强度，默认 1
+        pytorch_init (bool): 是否使用 PyTorch 默认参数初始化；
+                             若为 False，则使用自定义初始化方式
     """
 
     def __init__(self, num_feat=64, res_scale=1, pytorch_init=False):
@@ -101,11 +101,28 @@ class ResidualBlockNoBN(nn.Module):
 
 
 class Upsample(nn.Sequential):
-    """Upsample module.
+"""
+    基于 PixelShuffle (亚像素卷积) 的上采样模块。
 
-    Args:
-        scale (int): Scale factor. Supported scales: 2^n and 3.
-        num_feat (int): Channel number of intermediate features.
+    该模块用于提升特征图的空间分辨率 (H, W)，同时保持通道数 (num_feat) 不变。
+    常用于超分辨率任务 (如 ESPCN, EDSR)。
+
+    实现逻辑:
+        - 如果 scale 是 2 的 n 次幂 (如 2, 4, 8): 
+          通过循环堆叠 n 个 [Conv2d -> PixelShuffle(2)] 模块，逐步进行 2 倍上采样。
+        - 如果 scale 是 3:
+          直接使用一个 [Conv2d -> PixelShuffle(3)] 模块。
+
+    参数:
+        scale (int): 缩放因子。支持的值: 2^n (2, 4, 8...) 和 3。
+        num_feat (int): 输入特征图的通道数。
+
+    输入输出维度:
+        - Input: (N, num_feat, H, W)
+        - Output: (N, num_feat, H * scale, W * scale)
+
+    异常:
+        ValueError: 当 scale 不是支持的数值时抛出。
     """
 
     def __init__(self, scale, num_feat):
@@ -129,6 +146,15 @@ def flow_warp(x,
               padding_mode='zeros',
               align_corners=True):
     """Warp an image or feature map with optical flow.
+    假设你正在处理视频中的一只鸟：
+
+    输入 (x)：上一帧的画面（鸟在左边）。
+
+    光流 (flow)：告诉程序“鸟往右飞了 5 个像素”。
+
+    Warp (output)：程序根据光流，把上一帧画面里的鸟向右“推”5个像素。
+
+    结果：生成的 output 里，鸟的位置就和当前帧对齐了。
 
     Args:
         x (Tensor): Tensor with size (n, c, h, w).
@@ -174,6 +200,9 @@ def resize_flow(flow,
                 interp_mode='bilinear',
                 align_corners=False):
     """Resize a flow according to ratio or shape.
+    这是一个专门用于调整光流（Optical Flow）尺寸的辅助函数。
+
+    它看起来像普通的图像缩放（Resize），但有一个极其关键的区别：它不仅改变分辨率，还会自动调整光流数值的大小。
 
     Args:
         flow (Tensor): Precomputed flow. shape [N, 2, H, W].
@@ -217,7 +246,7 @@ def resize_flow(flow,
 # TODO: may write a cpp file
 def pixel_unshuffle(x, scale):
     """ Pixel unshuffle.
-
+    PixelShuffle 的反向过程。
     Args:
         x (Tensor): Input feature with shape (b, c, hh, hw).
         scale (int): Downsample ratio.

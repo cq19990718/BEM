@@ -1,3 +1,5 @@
+# LOL-v1 (旧版)
+# 学习率周期 20w - 5w - 5w
 # general settings
 name: CG_UNet_LOLv1
 model_type: ConditionGenerator
