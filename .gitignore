@@ -1,0 +1,14 @@
+# ===== Python cache =====
+__pycache__/
+*.pyc
+
+# ===== Training outputs =====
+experiments/
+tb_logger/
+wandb/
+
+# ===== Packaging =====
+.eggs/
+
+# ===== Logs =====
+*.log

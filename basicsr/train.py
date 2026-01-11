@@ -85,12 +85,6 @@ def create_train_val_dataloader(opt, logger):
 
     return train_loader, train_sampler, val_loaders, total_epochs, total_iters
 
-'''load_resume_state(opt)
-输入：opt（dict，训练配置）
-
-输出：resume_state（若有则为恢复状态 dict，否则 None）
-
-作用：根据配置读取断点训练状态并校验可恢复迭代。'''
 def load_resume_state(opt):
     resume_state_path = None
     if opt['auto_resume']:
@@ -113,12 +107,7 @@ def load_resume_state(opt):
         check_resume(opt, resume_state['iter'])
     return resume_state
 
-'''train_pipeline(root_path)
-输入：root_path（项目根路径）
 
-输出：无显式返回（执行完整训练流程）
-
-作用：解析配置、创建日志/数据/模型、执行训练循环、验证与保存。'''
 def train_pipeline(root_path):
     # parse options, set distributed setting, set random seed
     opt, args = parse_options(root_path, is_train=True)

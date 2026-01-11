@@ -31,5 +31,4 @@ timm==0.4.12
 tokenizers==0.19.1
 torchmetrics==1.4.1
 tqdm==4.66.4
-causal_conv1d==1.0.0
-mamba_ssm==1.0.1
+

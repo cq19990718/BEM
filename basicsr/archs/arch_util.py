@@ -101,7 +101,7 @@ class ResidualBlockNoBN(nn.Module):
 
 
 class Upsample(nn.Sequential):
-"""
+    """
     基于 PixelShuffle (亚像素卷积) 的上采样模块。
 
     该模块用于提升特征图的空间分辨率 (H, W)，同时保持通道数 (num_feat) 不变。
